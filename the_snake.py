@@ -166,17 +166,19 @@ def main():
 
         snake.move()
 
-        if snake.get_head_position() == apple.position:
+        head_position = snake.get_head_position()
+
+        if head_position == apple.position:
             snake.length += 1
             apple.randomize_position()
 
-        head = snake.get_head_position()
-        if head in snake.positions[1:]:
+        if head_position in snake.positions[1:]:
             snake.reset()
+            screen.fill(BOARD_BACKGROUND_COLOR)
 
-        screen.fill(BOARD_BACKGROUND_COLOR)
         apple.draw()
         snake.draw()
+
         pygame.display.update()
 
 
