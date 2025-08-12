@@ -1,8 +1,7 @@
+import sys
 from random import randint
 
 import pygame as pg
-
-import sys
 
 # Константы для размеров поля и сетки:
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
@@ -53,8 +52,8 @@ class GameObject:
 
     def draw(self):
         """Отрисовывает объект на экране."""
-        raise NotImplementedError('Определите draw в %s.' % (
-            self.__class__.__name__))
+        raise NotImplementedError(
+            f'Определите draw в {self.__class__.__name__}.')
 
     def draw_rectangle(self, position):
         """Отрисовывает ячейку объекта"""
