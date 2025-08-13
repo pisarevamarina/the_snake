@@ -65,26 +65,24 @@ class GameObject:
 class Apple(GameObject):
     """Класс, описывающий яблоко."""
 
-    def __init__(self, body_color=APPLE_COLOR, snake_positions=()):
+    def __init__(self, body_color=APPLE_COLOR, occupied_positions=()):
         """Инициализирует яблоко со случайной позицией."""
         super().__init__(body_color=body_color)
-        self.snake_positions = snake_positions
-        self.randomize_position()
+        self.randomize_position(occupied_positions)
 
     def draw(self):
         """Отрисовывает яблоко на экране."""
         self.draw_rectangle(self.position)
 
-    def randomize_position(self, snake_positions=()):
+    def randomize_position(self, occupied_positions=()):
         """Генерирует случайную позицию для яблока."""
-        self.snake_positions = snake_positions
         while True:
             self.position = (
                 randint(0, GRID_WIDTH - 1) * GRID_SIZE,
                 randint(0, GRID_HEIGHT - 1) * GRID_SIZE
             )
 
-            if self.position not in self.snake_positions:
+            if self.position not in occupied_positions:
                 break
 
 
@@ -156,7 +154,7 @@ def main():
     """Основной игровой цикл."""
     pg.init()
     snake = Snake()
-    apple = Apple(snake_positions=snake.positions)
+    apple = Apple(occupied_positions=snake.positions)
 
     while True:
         clock.tick(SPEED)
@@ -173,11 +171,11 @@ def main():
 
         if head_position == apple.position:
             snake.length += 1
-            apple.randomize_position(snake_positions=snake.positions)
+            apple.randomize_position(occupied_positions=snake.positions)
 
-        if head_position in snake.positions[1:]:
+        elif head_position in snake.positions[1:]:
             snake.reset()
-            apple.randomize_position(snake_positions=snake.positions)
+            apple.randomize_position(occupied_positions=snake.positions)
 
         apple.draw()
         snake.draw()
