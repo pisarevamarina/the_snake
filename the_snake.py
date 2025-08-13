@@ -173,7 +173,7 @@ def main():
             snake.length += 1
             apple.randomize_position(occupied_positions=snake.positions)
 
-        elif head_position in snake.positions[1:]:
+        elif head_position in snake.positions[4:]:
             snake.reset()
             apple.randomize_position(occupied_positions=snake.positions)
 
